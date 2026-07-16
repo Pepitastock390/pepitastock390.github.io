@@ -588,6 +588,21 @@ end</code></pre>
 
         <article class="ex" data-reveal>
           <figure class="ex__media">
+            <img src="assets/examples/widget-tabs.jpg" loading="lazy" decoding="async"
+                 alt="A tabbed pane with two tabs, Query and Action; the active Query tab renders a real SQL statement, SELECT * FROM persons.">
+          </figure>
+          <div class="ex__body">
+            <h3>Widgets, wrapping a query</h3>
+            <p>A tabbed pane whose tabs hold whatever you like — here a button and a live SQL query. It paints the active tab, and the query renders as real, editable SQL.</p>
+            <pre class="ex__code"><code><span class="c"># a tabbed pane mixing a widget and an SQL query</span>
+WidgetTabbedPane([
+    ("Query",  SqlSelectStatement("persons")),   <span class="c"># SELECT * FROM persons</span>
+    ("Action", WidgetButton(Point2D(40, 40), Point2D(180, 56), "Run"))])</code></pre>
+          </div>
+        </article>
+
+        <article class="ex" data-reveal>
+          <figure class="ex__media">
             <img src="assets/examples/graph.jpg" loading="lazy" decoding="async"
                  alt="A graph of three node boxes connected by routed, labelled edges: a widget table (Name/Role, Ada/Lead), a JSON object (id 42, active true), and an XML node element — all placed automatically.">
           </figure>
