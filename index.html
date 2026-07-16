@@ -209,10 +209,11 @@
   .ex__code code { font-family: var(--mono); font-size: 0.76rem; line-height: 1.55; color: var(--ink); white-space: pre; display: block; }
   .ex__code .c { color: var(--ink-faint); }
   .ex--wide { grid-column: 1 / -1; }
+  .ex--wide .ex__media img { max-height: none; }
   @media (min-width: 780px) {
     .ex--wide { flex-direction: row; align-items: stretch; }
-    .ex--wide .ex__media { border-bottom: 0; border-right: 1px solid var(--line); flex: 0 0 44%; }
-    .ex--wide .ex__media img { max-height: 420px; }
+    .ex--wide .ex__media { border-bottom: 0; border-right: 1px solid var(--line); flex: 0 0 42%; }
+    .ex--wide .ex__media img { max-height: 520px; }
     .ex--wide .ex__body { flex: 1; justify-content: center; }
   }
 
@@ -540,25 +541,25 @@ end</code></pre>
 
         <article class="ex ex--wide" data-reveal>
           <figure class="ex__media">
-            <img src="assets/examples/xhtml-table.jpg" loading="lazy" decoding="async"
-                 alt="A Julia-built XHTML table shown as a structured XML tree: a table element with a class attribute and a header row of th cells (Region, Revenue, Growth).">
+            <img src="assets/examples/mixed-julia-xml.jpg" loading="lazy" decoding="async"
+                 alt="A Julia function named report whose body is an XML table; the rows are produced by a Julia for-loop that emits an XML tr with td cells holding the Julia field accesses row.region and row.revenue. Julia keywords, XML tags, and identifiers are syntax-coloured per domain.">
           </figure>
           <div class="ex__body">
-            <h3>XHTML, as structured data</h3>
-            <p>Build an HTML table right in Julia and it's a real document — elements, attributes, and text you edit structurally, never a flat string of markup.</p>
-            <pre class="ex__code"><code><span class="c"># an XHTML &lt;table&gt; built as a structured XML document —</span>
-<span class="c"># elements, attributes, and text are all editable</span>
-XmlElement("table", [XmlAttribute("class", "report")], [
-    XmlElement("tr", [XmlElement("th", [XmlText("Region")]),
-                      XmlElement("th", [XmlText("Revenue")]),
-                      XmlElement("th", [XmlText("Growth")])]),
-    XmlElement("tr", [XmlElement("td", [XmlText("EMEA")]),
-                      XmlElement("td", [XmlText("1.2M")]),
-                      XmlElement("td", [XmlText("+12%")])]),
-    XmlElement("tr", [XmlElement("td", [XmlText("APAC")]),
-                      XmlElement("td", [XmlText("0.9M")]),
-                      XmlElement("td", [XmlText("+8%")])]),
-])</code></pre>
+            <h3>One function, three domains</h3>
+            <p>A Julia function whose body is an XML table — and the rows are a Julia loop. One document nests Julia ⊃ XML ⊃ Julia, each level editable in place. Server-side templating, without the string-mashing.</p>
+            <pre class="ex__code"><code><span class="c"># one document, three domains nested — Julia ⊃ XML ⊃ Julia:</span>
+<span class="c"># a function whose body is XML, its rows built by a Julia loop</span>
+function report(rows)
+    &lt;table class="report"&gt;
+        &lt;tr&gt;&lt;th&gt;Region&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;
+        for row in rows
+            &lt;tr&gt;
+                &lt;td&gt;row.region&lt;/td&gt;
+                &lt;td&gt;row.revenue&lt;/td&gt;
+            &lt;/tr&gt;
+        end
+    &lt;/table&gt;
+end</code></pre>
           </div>
         </article>
 
