@@ -196,6 +196,19 @@
     letter-spacing: 0.04em; margin-top: 1rem; text-align: center;
   }
 
+  /* ---------- examples ---------- */
+  .examples-grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; margin-top: 2.6rem; align-items: start; }
+  @media (min-width: 780px) { .examples-grid { grid-template-columns: 1fr 1fr; } }
+  .ex { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); display: flex; flex-direction: column; }
+  .ex__media { margin: 0; background: var(--paper-2); border-bottom: 1px solid var(--line); display: flex; justify-content: center; align-items: center; }
+  .ex__media img, .ex__media video { display: block; width: 100%; height: auto; max-height: 340px; object-fit: contain; object-position: center; }
+  .ex__body { padding: 1.15rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: .55rem; }
+  .ex__body h3 { font-family: var(--mono); font-size: 1rem; margin: 0; letter-spacing: -0.01em; }
+  .ex__body p { margin: 0; color: var(--ink-soft); font-size: var(--step-0); line-height: 1.5; }
+  .ex__code { margin: .5rem 0 0; background: var(--paper-2); border: 1px solid var(--line-soft); border-radius: 8px; padding: .8rem .9rem; overflow-x: auto; }
+  .ex__code code { font-family: var(--mono); font-size: 0.76rem; line-height: 1.55; color: var(--ink); white-space: pre; display: block; }
+  .ex__code .c { color: var(--ink-faint); }
+
   /* ---------- sections ---------- */
   section { padding-block: clamp(3rem, 7vw, 5.5rem); border-top: 1px solid var(--line-soft); }
   .section-head { max-width: 60ch; }
@@ -300,6 +313,7 @@
       <a href="#idea">The idea</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#showcase">Demo</a>
+      <a href="#examples">Examples</a>
       <a href="#domains">Domains</a>
       <a href="#status">Lineage</a>
     </nav>
@@ -429,6 +443,95 @@
         </video>
         <figcaption>the new, Julia-based ProjecturEd · an OMNeT++ study built entirely inside the editor</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section id="examples">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Examples</p>
+        <h2>A few things it can do — and how little it takes.</h2>
+        <p>Each one is a real document or projection, rendered by the editor itself. The code shown is the interesting part.</p>
+      </div>
+      <div class="examples-grid">
+
+        <article class="ex" data-reveal>
+          <figure class="ex__media">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/examples/rotating-poster.jpg" width="600" height="600">
+              <source src="assets/examples/rotating.mp4" type="video/mp4">
+            </video>
+          </figure>
+          <div class="ex__body">
+            <h3>A rotating vector</h3>
+            <p>Animation for free: each coordinate is a cell that reads the clock, so the whole scene redraws itself every frame.</p>
+            <pre class="ex__code"><code><span class="c"># each animated value is a cell that reads the editor's clock,</span>
+<span class="c"># so the scene re-renders every frame</span>
+dot = GraphicsCircle(
+    () -> cx + r*cos(angle(get_reactive_time(clock))),
+    () -> cy - r*sin(angle(get_reactive_time(clock))),
+    7, color_solarized_magenta)
+
+GraphicsCanvas([background, ring, sin_chart, cos_chart, dot]; w, h)</code></pre>
+          </div>
+        </article>
+
+        <article class="ex" data-reveal>
+          <figure class="ex__media">
+            <img src="assets/examples/math-table.jpg" loading="lazy" decoding="async"
+                 alt="A 3x3 table with column headers A B C and row headers 1 2 3; the first row holds numbers and the next rows hold rendered math formulas.">
+          </figure>
+          <div class="ex__body">
+            <h3>A table of live math</h3>
+            <p>Cells aren't just values — they can be formulas that recompute as you edit. A table domain and a math domain, composed.</p>
+            <pre class="ex__code"><code><span class="c"># a table widget whose cells can be live math, not just values</span>
+WidgetTable(Point2D(40, 40),
+    [PrimitiveString("A"), PrimitiveString("B"), PrimitiveString("C")],
+    [PrimitiveString("1"), PrimitiveString("2"), PrimitiveString("3")],
+    [[PrimitiveNumber(10), PrimitiveNumber(20), PrimitiveNumber(30)],
+     <span class="c"># formulas, re-evaluated as you edit:</span>
+     [MathBinaryOperation(:+, MathVariable("A"), MathVariable("B")),
+      MathBinaryOperation(:*, PrimitiveNumber(2), MathVariable("B")),
+      MathBinaryOperation(:-, MathVariable("C"), PrimitiveNumber(5))]])</code></pre>
+          </div>
+        </article>
+
+        <article class="ex" data-reveal>
+          <figure class="ex__media">
+            <img src="assets/examples/sorting.jpg" loading="lazy" decoding="async"
+                 alt="A short list of fruit strings shown sorted alphabetically.">
+          </figure>
+          <div class="ex__body">
+            <h3>Sort without touching the data</h3>
+            <p>A sorted view is one extra projection in the pipeline. Remove it and the original order is back — nothing was mutated.</p>
+            <pre class="ex__code"><code><span class="c"># a sorted view is just one more projection in the pipeline —</span>
+<span class="c"># the underlying list is never reordered</span>
+ChainingProjection(
+    SortingProjection(by = x -> x.value),
+    <span class="c"># … then render the collection as text …</span>
+)</code></pre>
+          </div>
+        </article>
+
+        <article class="ex" data-reveal>
+          <figure class="ex__media">
+            <img src="assets/examples/object-form.jpg" loading="lazy" decoding="async"
+                 alt="An editable settings form: a text field for a query and two checkboxes, generated from a struct.">
+          </figure>
+          <div class="ex__body">
+            <h3>Any object, as a form</h3>
+            <p>Point the reflective projection at a plain struct and get an editable form — text fields, checkboxes — with no UI code.</p>
+            <pre class="ex__code"><code><span class="c"># reflected into a form: the String becomes a text field,</span>
+<span class="c"># each Bool a checkbox — no interface code written</span>
+@document struct SearchSettings
+    query::String
+    case_insensitive::Bool
+    whole_word::Bool
+end</code></pre>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
