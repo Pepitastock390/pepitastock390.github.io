@@ -8,12 +8,17 @@
 <meta name="theme-color" content="#f0f1f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1116" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ProjecturEd — a generic-purpose projectional editor">
-<meta property="og:description" content="One structure, seen every way — and editable every way. Edit trees, tables, and graphs through multiple, simultaneous, bidirectional projections.">
+<meta property="og:title" content="ProjecturEd — an AI-native projectional editor">
+<meta property="og:description" content="One structure, seen every way — and editable every way. Humans and AI edit trees, tables, and graphs through multiple, simultaneous, bidirectional projections.">
 <meta property="og:url" content="https://projectured.github.io">
+<meta property="og:image" content="https://projectured.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ProjecturEd — an AI-native projectional editor">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ProjecturEd — a generic-purpose projectional editor">
-<meta name="twitter:description" content="One structure, seen every way — and editable every way.">
+<meta name="twitter:title" content="ProjecturEd — an AI-native projectional editor">
+<meta name="twitter:description" content="One structure, seen every way — and editable every way. Humans and AI edit one shared model.">
+<meta name="twitter:image" content="https://projectured.github.io/assets/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ccircle cx='9' cy='16' r='2.4' fill='%235b7bff'/%3E%3Cg stroke='%235b7bff' stroke-width='1.6' fill='none'%3E%3Cpath d='M11 16 L23 8'/%3E%3Cpath d='M11 16 L23 16'/%3E%3Cpath d='M11 16 L23 24'/%3E%3C/g%3E%3Cg fill='%23e6e9ee'%3E%3Crect x='22' y='6' width='5' height='4' rx='1'/%3E%3Crect x='22' y='14' width='5' height='4' rx='1'/%3E%3Crect x='22' y='22' width='5' height='4' rx='1'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   :root {
@@ -145,8 +150,16 @@
 
   /* ---------- hero ---------- */
   .hero { padding-block: clamp(2.6rem, 7vw, 5.4rem) clamp(2rem, 5vw, 3.4rem); }
-  .hero__grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 3.4rem); align-items: center; }
-  @media (min-width: 900px) { .hero__grid { grid-template-columns: 0.92fr 1.08fr; } }
+  .hero__copy { max-width: 52ch; }
+  .hero__shot { margin-top: clamp(2.2rem, 5vw, 3.6rem); }
+  .hero__shot img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--paper-2);
+  }
+  .hero__shot figcaption {
+    font-family: var(--mono); font-size: var(--step--1); color: var(--ink-faint);
+    letter-spacing: 0.04em; margin-top: 1rem; text-align: center;
+  }
 
   .hero h1 { font-size: var(--step-3); line-height: 1.02; margin: 1rem 0 0; }
   .hero h1 .dim { color: var(--ink-faint); }
@@ -171,40 +184,6 @@
     text-decoration: none; border-bottom: 1px dashed var(--line); padding-bottom: 2px;
   }
   .textlink:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ---------- hero diagram ---------- */
-  .diagram { width: 100%; }
-  .diagram figure { margin: 0; }
-  .diagram svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .diagram figcaption {
-    font-family: var(--mono); font-size: var(--step--1); color: var(--ink-faint);
-    letter-spacing: 0.04em; margin-top: 1rem; text-align: center;
-  }
-  .dg-card-bg { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
-  .dg-source-bg { fill: var(--paper-2); stroke: var(--accent); stroke-width: 1.4; }
-  .dg-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; fill: var(--ink-faint); text-transform: uppercase; }
-  .dg-cap { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; fill: var(--ink-faint); }
-  .dg-code { font-family: var(--mono); font-size: 13px; fill: var(--ink); }
-  .dg-dim { fill: var(--ink-faint); }
-  .dg-key { fill: var(--accent); }
-  .dg-tree { fill: var(--ink-soft); }
-  .dg-ray { fill: none; stroke: var(--accent); stroke-width: 1.6; }
-  .dg-node { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; }
-  .dg-edge { stroke: var(--ink-faint); stroke-width: 1.3; }
-  .dg-tick { stroke: var(--line); stroke-width: 1; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .dg-ray { stroke-dasharray: 360; stroke-dashoffset: 360; animation: draw 1s ease forwards; }
-    .dg-ray.r1 { animation-delay: .15s; }
-    .dg-ray.r2 { animation-delay: .3s; }
-    .dg-ray.r3 { animation-delay: .45s; }
-    .dg-view { opacity: 0; animation: pop .55s ease forwards; }
-    .dg-view.v1 { animation-delay: .5s; }
-    .dg-view.v2 { animation-delay: .68s; }
-    .dg-view.v3 { animation-delay: .86s; }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-    @keyframes pop { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-  }
 
   /* ---------- showcase video ---------- */
   .showcase { margin: 2.4rem 0 0; }
@@ -331,7 +310,7 @@
 
   <!-- HERO -->
   <section class="hero" style="border-top:0">
-    <div class="wrap hero__grid">
+    <div class="wrap">
       <div class="hero__copy">
         <p class="eyebrow">AI-native · generic-purpose projectional editor</p>
         <h1>One structure,<br><span class="dim">seen every way</span> —<br>and <span class="hl">editable</span> every way.</h1>
@@ -343,73 +322,15 @@
         <div class="cta-row">
           <a class="btn btn--primary" href="#idea">Explore the idea →</a>
           <a class="btn btn--ghost" href="mailto:projectured@gmail.com">Get in touch</a>
-        </div>
-        <div class="cta-row" style="margin-top:1.1rem">
-          <a class="textlink" href="#showcase">watch the editor in action ↓</a>
+          <a class="textlink" href="#showcase" style="margin-left:.4rem">watch it in motion ↓</a>
         </div>
       </div>
 
-      <div class="diagram">
-        <figure>
-          <svg viewBox="0 0 720 430" role="img" aria-labelledby="dg-title dg-desc">
-            <title id="dg-title">One document projected into many editable notations</title>
-            <desc id="dg-desc">A single structured document on the left connects by projection rays to three
-              views on the right — the same data shown as text, as a table, and as a graph.</desc>
-
-            <text class="dg-cap" x="48" y="128">ONE DOCUMENT</text>
-            <text class="dg-cap" x="672" y="26" text-anchor="end">MANY PROJECTIONS · ALL EDITABLE</text>
-
-            <!-- source -->
-            <g class="dg-source">
-              <rect class="dg-source-bg" x="48" y="145" width="224" height="150" rx="11"></rect>
-              <text class="dg-label" x="66" y="172">Source · structure</text>
-              <text class="dg-code dg-tree" x="66" y="200">contact</text>
-              <text class="dg-code" x="66" y="222"><tspan class="dg-tree">├ </tspan><tspan class="dg-key">name</tspan><tspan class="dg-tree">  "Ada"</tspan></text>
-              <text class="dg-code" x="66" y="244"><tspan class="dg-tree">├ </tspan><tspan class="dg-key">age</tspan><tspan class="dg-tree">   </tspan><tspan class="dg-dim">36</tspan></text>
-              <text class="dg-code" x="66" y="266"><tspan class="dg-tree">└ </tspan><tspan class="dg-key">tags</tspan><tspan class="dg-tree">  […]</tspan></text>
-            </g>
-
-            <!-- rays -->
-            <path class="dg-ray r1" d="M272 205 Q 366 150 452 96"></path>
-            <path class="dg-ray r2" d="M272 220 Q 366 220 452 220"></path>
-            <path class="dg-ray r3" d="M272 235 Q 366 292 452 344"></path>
-            <circle cx="272" cy="220" r="3.4" fill="var(--accent)"></circle>
-
-            <!-- view 1: TEXT -->
-            <g class="dg-view v1">
-              <rect class="dg-card-bg" x="452" y="52" width="220" height="88" rx="9"></rect>
-              <text class="dg-label" x="468" y="76">Text</text>
-              <text class="dg-code" x="468" y="100"><tspan class="dg-tree">{ </tspan><tspan class="dg-key">"name"</tspan><tspan class="dg-tree">: "Ada",</tspan></text>
-              <text class="dg-code" x="468" y="122"><tspan class="dg-tree">  </tspan><tspan class="dg-key">"age"</tspan><tspan class="dg-tree">: </tspan><tspan class="dg-dim">36</tspan><tspan class="dg-tree"> }</tspan></text>
-            </g>
-
-            <!-- view 2: TABLE -->
-            <g class="dg-view v2">
-              <rect class="dg-card-bg" x="452" y="176" width="220" height="88" rx="9"></rect>
-              <text class="dg-label" x="468" y="200">Table</text>
-              <line class="dg-tick" x1="468" y1="212" x2="656" y2="212"></line>
-              <text class="dg-code dg-tree" x="468" y="230">name    │ age</text>
-              <line class="dg-tick" x1="468" y1="238" x2="656" y2="238"></line>
-              <text class="dg-code" x="468" y="256"><tspan class="dg-tree">Ada     │ </tspan><tspan class="dg-dim">36</tspan></text>
-            </g>
-
-            <!-- view 3: GRAPH -->
-            <g class="dg-view v3">
-              <rect class="dg-card-bg" x="452" y="300" width="220" height="88" rx="9"></rect>
-              <text class="dg-label" x="468" y="324">Graph</text>
-              <line class="dg-edge" x1="506" y1="356" x2="576" y2="342"></line>
-              <line class="dg-edge" x1="506" y1="356" x2="576" y2="372"></line>
-              <circle class="dg-node" cx="500" cy="356" r="11"></circle>
-              <circle class="dg-node" cx="586" cy="340" r="8"></circle>
-              <circle class="dg-node" cx="586" cy="372" r="8"></circle>
-              <text class="dg-code dg-tree" x="500" y="359" text-anchor="middle" style="font-size:9px">Ada</text>
-              <text class="dg-code dg-dim" x="612" y="344" style="font-size:11px">36</text>
-              <text class="dg-code dg-dim" x="612" y="376" style="font-size:11px">tags</text>
-            </g>
-          </svg>
-          <figcaption>same data · three projections · edit any one</figcaption>
-        </figure>
-      </div>
+      <figure class="hero__shot" data-reveal>
+        <img src="assets/hero.jpg" width="1600" height="900" loading="eager" decoding="async"
+             alt="ProjecturEd building an M/M/1/K queueing study — prose and a rendered blocking-probability formula beside a results table and a chart, with the built-in AI assistant running the OMNeT++ simulation.">
+        <figcaption>the editor building an OMNeT++ study — assistant, math, tables, and charts in one document</figcaption>
+      </figure>
     </div>
   </section>
 
