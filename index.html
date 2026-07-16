@@ -199,13 +199,13 @@
   /* ---------- examples ---------- */
   .examples-grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; margin-top: 2.6rem; align-items: start; }
   @media (min-width: 780px) { .examples-grid { grid-template-columns: 1fr 1fr; } }
-  .ex { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); display: flex; flex-direction: column; }
+  .ex { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); display: flex; flex-direction: column; min-width: 0; }
   .ex__media { margin: 0; background: var(--paper-2); border-bottom: 1px solid var(--line); display: flex; justify-content: center; align-items: center; }
   .ex__media img, .ex__media video { display: block; width: 100%; height: auto; max-height: 340px; object-fit: contain; object-position: center; }
-  .ex__body { padding: 1.15rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: .55rem; }
+  .ex__body { padding: 1.15rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: .55rem; min-width: 0; }
   .ex__body h3 { font-family: var(--mono); font-size: 1rem; margin: 0; letter-spacing: -0.01em; }
   .ex__body p { margin: 0; color: var(--ink-soft); font-size: var(--step-0); line-height: 1.5; }
-  .ex__code { margin: .5rem 0 0; background: var(--paper-2); border: 1px solid var(--line-soft); border-radius: 8px; padding: .8rem .9rem; overflow-x: auto; }
+  .ex__code { margin: .5rem 0 0; max-width: 100%; background: var(--paper-2); border: 1px solid var(--line-soft); border-radius: 8px; padding: .8rem .9rem; overflow-x: auto; }
   .ex__code code { font-family: var(--mono); font-size: 0.76rem; line-height: 1.55; color: var(--ink); white-space: pre; display: block; }
   .ex__code .c { color: var(--ink-faint); }
   .ex--wide { grid-column: 1 / -1; }
@@ -328,6 +328,7 @@
     <nav class="navlinks" aria-label="Primary">
       <a href="#idea">The idea</a>
       <a href="#capabilities">Capabilities</a>
+      <a href="#ai">AI</a>
       <a href="#showcase">Demo</a>
       <a href="#examples">Examples</a>
       <a href="#domains">Catalog</a>
@@ -437,7 +438,45 @@
         <article class="cap" data-reveal>
           <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 h6 l3 -9 4 15 3 -8 h8"/></svg></div>
           <h3>Incremental &amp; reactive</h3>
-          <p>Only what changed is recomputed. A ten-thousand-row document stays responsive — only what's on screen is ever drawn.</p>
+          <p>Only what changed is recomputed — and only what's on screen is ever computed and drawn. A ten-thousand-row document stays instant.</p>
+        </article>
+        <article class="cap" data-reveal>
+          <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="16" cy="16" r="12"/><path d="M13 10.5 l9 5.5 -9 5.5 z" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Playback &amp; recording</h3>
+          <p>Drive any session from a script, then capture it — live playback, headless screenshots, and recorded video, with no display required.</p>
+        </article>
+        <article class="cap" data-reveal>
+          <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4 l10 4 v7 c0 7 -5 10 -10 13 c-5 -3 -10 -6 -10 -13 v-7 z"/><path d="M11 16 l4 4 7 -8"/></svg></div>
+          <h3>Tested by construction</h3>
+          <p>A comprehensive automatic test suite exercises every projection, reader, and domain — built to rule out whole classes of errors, not chase them one at a time.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI -->
+  <section id="ai">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">AI integration</p>
+        <h2>Built for an AI collaborator — not bolted on.</h2>
+        <p>An assistant here isn't a plugin off to the side; it works the very same document you do. Because every action is a typed, inspectable operation, the AI can see the whole picture and change it exactly the way a person would.</p>
+      </div>
+      <div class="caps">
+        <article class="cap" data-reveal>
+          <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="14" cy="14" r="8"/><path d="M20 20 l6 6" stroke-linecap="round"/><path d="M14 11 v6 M11 14 h6" stroke-linecap="round"/></svg></div>
+          <h3>Introspection, built in</h3>
+          <p>The live document, the operations available right now, the projections in play, the editor's own interface — all of it is readable at runtime. The assistant doesn't guess at line numbers; it reads the structure.</p>
+        </article>
+        <article class="cap" data-reveal>
+          <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12 a9 9 0 0 1 16 -3 l2.5 2.5 M25.5 6 v5 h-5"/><path d="M25 20 a9 9 0 0 1 -16 3 l-2.5 -2.5 M6.5 26 v-5 h5"/></svg></div>
+          <h3>It changes what — and how</h3>
+          <p>The assistant edits the data and the projections that present it: swap a notation, add a sorted or filtered view, restructure a document. Manipulating documents and their views is native, not a bolt-on.</p>
+        </article>
+        <article class="cap" data-reveal>
+          <div class="cap__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="16" r="4"/><circle cx="23" cy="16" r="4"/><path d="M13.5 13.5 h5 l-2 -2 M18.5 18.5 h-5 l2 2"/></svg></div>
+          <h3>Symmetric by design</h3>
+          <p>There is no separate "AI mode." Anything you can do, the assistant can do; anything it can do, you can do. One shared vocabulary of operations drives both.</p>
         </article>
       </div>
     </div>
@@ -547,7 +586,7 @@ end</code></pre>
           </div>
         </article>
 
-        <article class="ex ex--wide" data-reveal>
+        <article class="ex" data-reveal>
           <figure class="ex__media">
             <img src="assets/examples/graph.jpg" loading="lazy" decoding="async"
                  alt="A graph of three node boxes connected by routed, labelled edges: a widget table (Name/Role, Ada/Lead), a JSON object (id 42, active true), and an XML node element — all placed automatically.">
@@ -613,16 +652,19 @@ JuliaFunction(JuliaIdentifier("report"), [JuliaIdentifier("rows")],
         <span class="chip"><span class="dot"></span>JSON</span>
         <span class="chip"><span class="dot"></span>XML</span>
         <span class="chip"><span class="dot"></span>YAML</span>
-        <span class="chip"><span class="dot"></span>Source code · ASTs</span>
         <span class="chip"><span class="dot"></span>SQL</span>
+        <span class="chip"><span class="dot"></span>Source code · ASTs</span>
         <span class="chip"><span class="dot"></span>Math</span>
-        <span class="chip"><span class="dot"></span>Tables</span>
         <span class="chip"><span class="dot"></span>Prose &amp; Markdown</span>
         <span class="chip"><span class="dot"></span>Styled text</span>
+        <span class="chip"><span class="dot"></span>Tables</span>
         <span class="chip"><span class="dot"></span>Diagrams &amp; graphs</span>
-        <span class="chip"><span class="dot"></span>Vector graphics</span>
-        <span class="chip"><span class="dot"></span>Widgets</span>
-        <span class="chip"><span class="dot"></span>Layouts</span>
+        <span class="chip"><span class="dot"></span>Graphics</span>
+        <span class="chip"><span class="dot"></span>Icons</span>
+        <span class="chip"><span class="dot"></span>Images</span>
+        <span class="chip"><span class="dot"></span>Styles · fonts &amp; colors</span>
+        <span class="chip"><span class="dot"></span>A rich widget set</span>
+        <span class="chip"><span class="dot"></span>Layouts, incl. constraint-based</span>
         <span class="chip"><span class="dot"></span>Filesystem</span>
         <span class="chip"><span class="dot"></span>Version history</span>
         <span class="chip chip--soft"><span class="dot"></span>any object · reflected</span>
@@ -631,26 +673,18 @@ JuliaFunction(JuliaIdentifier("report"), [JuliaIdentifier("rows")],
 
       <h3 class="cat-label" data-reveal>Transform any view</h3>
       <div class="domains" data-reveal>
-        <span class="chip"><span class="dot"></span>Sorting</span>
-        <span class="chip"><span class="dot"></span>Filtering</span>
-        <span class="chip"><span class="dot"></span>Focusing</span>
-        <span class="chip"><span class="dot"></span>Searching</span>
-        <span class="chip"><span class="dot"></span>Reversing</span>
-        <span class="chip"><span class="dot"></span>Word-wrapping</span>
-        <span class="chip"><span class="dot"></span>Line-numbering</span>
-        <span class="chip"><span class="dot"></span>Reflection to a form</span>
+        <span class="chip"><span class="dot"></span>Sorting a sequence</span>
+        <span class="chip"><span class="dot"></span>Filtering a sequence</span>
+        <span class="chip"><span class="dot"></span>Searching by a predicate</span>
+        <span class="chip"><span class="dot"></span>Reversing a sequence</span>
+        <span class="chip"><span class="dot"></span>Focusing to a smaller part</span>
       </div>
 
-      <h3 class="cat-label" data-reveal>Compose them</h3>
+      <h3 class="cat-label" data-reveal>Compose &amp; operate</h3>
       <div class="domains" data-reveal>
-        <span class="chip"><span class="dot"></span>Chaining <small>pipelines</small></span>
-        <span class="chip"><span class="dot"></span>Nesting <small>a notation inside another</small></span>
-        <span class="chip"><span class="dot"></span>Dispatching <small>by content</small></span>
-        <span class="chip"><span class="dot"></span>Recursion <small>through a tree</small></span>
-        <span class="chip"><span class="dot"></span>Alternative views</span>
-        <span class="chip"><span class="dot"></span>Overlays <small>tooltips · popups</small></span>
-        <span class="chip"><span class="dot"></span>Drag &amp; drop</span>
-        <span class="chip"><span class="dot"></span>Live config bar</span>
+        <span class="chip"><span class="dot"></span>Dispatching by where it is</span>
+        <span class="chip"><span class="dot"></span>Recursion into parts</span>
+        <span class="chip"><span class="dot"></span>Clipboard</span>
       </div>
     </div>
   </section>
