@@ -260,8 +260,16 @@
     background: var(--surface); color: var(--ink); display: inline-flex; align-items: center; gap: .5rem;
   }
   .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .chip small { color: var(--ink-faint); }
   .chip--soft { border-style: dashed; color: var(--ink-soft); background: transparent; }
   .chip--soft .dot { background: var(--ink-faint); }
+  .cat-label {
+    font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-faint);
+    margin: 2.2rem 0 0.9rem; display: flex; align-items: center; gap: .7rem;
+  }
+  .cat-label::after { content: ""; flex: 1; height: 1px; background: var(--line-soft); }
+  .cat-label + .domains { margin-top: 0; }
 
   /* status */
   .status__body { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2.4rem; align-items: start; }
@@ -322,7 +330,7 @@
       <a href="#capabilities">Capabilities</a>
       <a href="#showcase">Demo</a>
       <a href="#examples">Examples</a>
-      <a href="#domains">Domains</a>
+      <a href="#domains">Catalog</a>
       <a href="#status">Lineage</a>
     </nav>
   </div>
@@ -541,25 +549,49 @@ end</code></pre>
 
         <article class="ex ex--wide" data-reveal>
           <figure class="ex__media">
+            <img src="assets/examples/graph.jpg" loading="lazy" decoding="async"
+                 alt="A graph of three node boxes connected by routed, labelled edges: a widget table (Name/Role, Ada/Lead), a JSON object (id 42, active true), and an XML node element — all placed automatically.">
+          </figure>
+          <div class="ex__body">
+            <h3>A graph that lays itself out</h3>
+            <p>Describe vertices and edges; it places the nodes and routes the connections for you. Each node here is a whole document in a different domain — a table, some JSON, an XML element.</p>
+            <pre class="ex__code"><code><span class="c"># nodes are whole documents — a table, some JSON, an XML element;</span>
+<span class="c"># describe vertices and edges, the layout &amp; routing are automatic</span>
+v_table = GraphVertex(table)   <span class="c"># table :: WidgetTable</span>
+v_json  = GraphVertex(json)    <span class="c"># json  :: JsonObject</span>
+v_xml   = GraphVertex(xml)     <span class="c"># xml   :: XmlElement</span>
+
+GraphGraph(
+    [v_table, v_json, v_xml],
+    [GraphEdge(v_table, v_json; directed=true, label="uses"),
+     GraphEdge(v_json,  v_xml;  directed=true),
+     GraphEdge(v_table, v_xml;  directed=false)])</code></pre>
+          </div>
+        </article>
+
+        <article class="ex ex--wide" data-reveal>
+          <figure class="ex__media">
             <img src="assets/examples/mixed-julia-xml.jpg" loading="lazy" decoding="async"
                  alt="A Julia function named report whose body is an XML table; the rows are produced by a Julia for-loop that emits an XML tr with td cells holding the Julia field accesses row.region and row.revenue. Julia keywords, XML tags, and identifiers are syntax-coloured per domain.">
           </figure>
           <div class="ex__body">
             <h3>One function, three domains</h3>
             <p>A Julia function whose body is an XML table — and the rows are a Julia loop. One document nests Julia ⊃ XML ⊃ Julia, each level editable in place. Server-side templating, without the string-mashing.</p>
-            <pre class="ex__code"><code><span class="c"># one document, three domains nested — Julia ⊃ XML ⊃ Julia:</span>
-<span class="c"># a function whose body is XML, its rows built by a Julia loop</span>
-function report(rows)
-    &lt;table class="report"&gt;
-        &lt;tr&gt;&lt;th&gt;Region&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;
-        for row in rows
-            &lt;tr&gt;
-                &lt;td&gt;row.region&lt;/td&gt;
-                &lt;td&gt;row.revenue&lt;/td&gt;
-            &lt;/tr&gt;
-        end
-    &lt;/table&gt;
-end</code></pre>
+            <pre class="ex__code"><code><span class="c"># Julia and XML document constructors, combined into one tree</span>
+<span class="c"># (the editor renders it as the syntax shown alongside)</span>
+JuliaFunction(JuliaIdentifier("report"), [JuliaIdentifier("rows")],
+  JuliaBlock([
+    XmlElement("table", [XmlAttribute("class", "report")], [
+      XmlElement("tr", [XmlElement("th", [XmlText("Region")]),
+                        XmlElement("th", [XmlText("Revenue")])]),
+      JuliaFor([JuliaForIterator(JuliaIdentifier("row"),
+                                 JuliaIdentifier("rows"))],
+        JuliaBlock([
+          XmlElement("tr", [
+            XmlElement("td", [JuliaFieldAccess(JuliaIdentifier("row"),
+                                               JuliaIdentifier("region"))]),
+            XmlElement("td", [JuliaFieldAccess(JuliaIdentifier("row"),
+                                               JuliaIdentifier("revenue"))])])]))])]))</code></pre>
           </div>
         </article>
 
@@ -567,28 +599,58 @@ end</code></pre>
     </div>
   </section>
 
-  <!-- DOMAINS -->
+  <!-- CATALOG -->
   <section id="domains">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Domains</p>
-        <h2>Made for structured data of every kind.</h2>
-        <p>One editor, many problem domains — and, because projections compose, any combination of them.</p>
+        <p class="eyebrow">Catalog</p>
+        <h2>Domains to edit — projections to view them.</h2>
+        <p>A document lives in a problem domain; a projection turns it into a notation. Both are open sets you extend — and because projections compose, any combination is fair game.</p>
       </div>
+
+      <h3 class="cat-label" data-reveal>Domains</h3>
       <div class="domains" data-reveal>
         <span class="chip"><span class="dot"></span>JSON</span>
         <span class="chip"><span class="dot"></span>XML</span>
         <span class="chip"><span class="dot"></span>YAML</span>
         <span class="chip"><span class="dot"></span>Source code · ASTs</span>
+        <span class="chip"><span class="dot"></span>SQL</span>
         <span class="chip"><span class="dot"></span>Math</span>
         <span class="chip"><span class="dot"></span>Tables</span>
         <span class="chip"><span class="dot"></span>Prose &amp; Markdown</span>
+        <span class="chip"><span class="dot"></span>Styled text</span>
         <span class="chip"><span class="dot"></span>Diagrams &amp; graphs</span>
         <span class="chip"><span class="dot"></span>Vector graphics</span>
+        <span class="chip"><span class="dot"></span>Widgets</span>
+        <span class="chip"><span class="dot"></span>Layouts</span>
         <span class="chip"><span class="dot"></span>Filesystem</span>
         <span class="chip"><span class="dot"></span>Version history</span>
-        <span class="chip chip--soft"><span class="dot"></span>any object, reflected</span>
+        <span class="chip chip--soft"><span class="dot"></span>any object · reflected</span>
         <span class="chip chip--soft"><span class="dot"></span>… and combinations of them</span>
+      </div>
+
+      <h3 class="cat-label" data-reveal>Transform any view</h3>
+      <div class="domains" data-reveal>
+        <span class="chip"><span class="dot"></span>Sorting</span>
+        <span class="chip"><span class="dot"></span>Filtering</span>
+        <span class="chip"><span class="dot"></span>Focusing</span>
+        <span class="chip"><span class="dot"></span>Searching</span>
+        <span class="chip"><span class="dot"></span>Reversing</span>
+        <span class="chip"><span class="dot"></span>Word-wrapping</span>
+        <span class="chip"><span class="dot"></span>Line-numbering</span>
+        <span class="chip"><span class="dot"></span>Reflection to a form</span>
+      </div>
+
+      <h3 class="cat-label" data-reveal>Compose them</h3>
+      <div class="domains" data-reveal>
+        <span class="chip"><span class="dot"></span>Chaining <small>pipelines</small></span>
+        <span class="chip"><span class="dot"></span>Nesting <small>a notation inside another</small></span>
+        <span class="chip"><span class="dot"></span>Dispatching <small>by content</small></span>
+        <span class="chip"><span class="dot"></span>Recursion <small>through a tree</small></span>
+        <span class="chip"><span class="dot"></span>Alternative views</span>
+        <span class="chip"><span class="dot"></span>Overlays <small>tooltips · popups</small></span>
+        <span class="chip"><span class="dot"></span>Drag &amp; drop</span>
+        <span class="chip"><span class="dot"></span>Live config bar</span>
       </div>
     </div>
   </section>
