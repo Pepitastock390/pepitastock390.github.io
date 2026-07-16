@@ -206,6 +206,17 @@
     @keyframes pop { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
   }
 
+  /* ---------- showcase video ---------- */
+  .showcase { margin: 2.4rem 0 0; }
+  .showcase video {
+    width: 100%; height: auto; display: block; aspect-ratio: 16 / 9;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--paper-2);
+  }
+  .showcase figcaption {
+    font-family: var(--mono); font-size: var(--step--1); color: var(--ink-faint);
+    letter-spacing: 0.04em; margin-top: 1rem; text-align: center;
+  }
+
   /* ---------- sections ---------- */
   section { padding-block: clamp(3rem, 7vw, 5.5rem); border-top: 1px solid var(--line-soft); }
   .section-head { max-width: 60ch; }
@@ -309,8 +320,9 @@
     <nav class="navlinks" aria-label="Primary">
       <a href="#idea">The idea</a>
       <a href="#capabilities">Capabilities</a>
+      <a href="#showcase">Demo</a>
       <a href="#domains">Domains</a>
-      <a href="#status">Status</a>
+      <a href="#status">Lineage</a>
     </nav>
   </div>
 </header>
@@ -333,7 +345,7 @@
           <a class="btn btn--ghost" href="mailto:projectured@gmail.com">Get in touch</a>
         </div>
         <div class="cta-row" style="margin-top:1.1rem">
-          <a class="textlink" href="https://github.com/projectured/projectured-lisp" target="_blank" rel="noopener">the original implementation ↗</a>
+          <a class="textlink" href="#showcase">watch the editor in action ↓</a>
         </div>
       </div>
 
@@ -480,6 +492,25 @@
     </div>
   </section>
 
+  <!-- SHOWCASE -->
+  <section id="showcase">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">See it in action</p>
+        <h2>One document: an AI assistant, a live simulation, math, tables, and charts.</h2>
+        <p>The current editor building an M/M/1/K queueing study end to end — prose, an OMNeT++ model,
+          a running simulation, and its results — composed live and driven by the built-in assistant.</p>
+      </div>
+      <figure class="showcase" data-reveal>
+        <video controls preload="none" playsinline poster="assets/mm1k-poster.jpg" width="1600" height="900">
+          <source src="assets/mm1k-demo.mp4" type="video/mp4">
+          Your browser can't play embedded video — <a href="assets/mm1k-demo.mp4">download the demo</a> instead.
+        </video>
+        <figcaption>the new, Julia-based ProjecturEd · an OMNeT++ study built entirely inside the editor</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- DOMAINS -->
   <section id="domains">
     <div class="wrap">
@@ -510,28 +541,32 @@
   <section id="status">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Status</p>
-        <h2>An ongoing exploration.</h2>
+        <p class="eyebrow">Lineage &amp; status</p>
+        <h2>A Common Lisp original — and a far more capable successor.</h2>
       </div>
       <div class="status__body">
         <div data-reveal>
           <p>
-            ProjecturEd is a long-running investigation into what structured, projectional editing
-            can be. A working editor runs today — as a native window, in the terminal, and in the
-            browser — and keeps growing as the ideas mature.
+            ProjecturEd began as an open-source editor written in Common Lisp — its source is public,
+            and you can still watch it in action. The current editor is its successor: rebuilt from
+            the ground up, far more capable, and in active development.
           </p>
           <p>
-            If projectional editing is something you think about too — as a user, a builder, or a
-            fellow traveller — get in touch. There's a lot still to explore.
+            It runs today across native, terminal, and browser. If projectional editing is something
+            you think about too — as a user, a builder, or a fellow traveller — get in touch.
           </p>
         </div>
         <div class="status__links" data-reveal>
           <a class="status__link" href="mailto:projectured@gmail.com">
-            <span>Contact<small>Say hello · collaborate</small></span>
+            <span>Get in touch<small>Say hello · collaborate</small></span>
             <span>→</span>
           </a>
+          <a class="status__link" href="https://www.youtube.com/watch?v=s05SlmZ7ZPc" target="_blank" rel="noopener">
+            <span>Watch the original<small>The Common Lisp version, on YouTube</small></span>
+            <span>↗</span>
+          </a>
           <a class="status__link" href="https://github.com/projectured/projectured-lisp" target="_blank" rel="noopener">
-            <span>Original implementation<small>The first ProjecturEd · archived</small></span>
+            <span>Original source<small>Common Lisp · open source · archived</small></span>
             <span>↗</span>
           </a>
         </div>
